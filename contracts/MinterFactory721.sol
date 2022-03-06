@@ -9,7 +9,10 @@ import "@openzeppelin/contracts/access/AccessControl.sol";
 
 import "./ERC721Base.sol";
 
-contract Minter721 is ERC721, AccessControl {
+contract MinterFactory721 is ERC721, AccessControl {
+
+    using SafeMath for uint256;
+    using Counters for Counters.Counter;    
 
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
@@ -18,9 +21,7 @@ contract Minter721 is ERC721, AccessControl {
     uint256 public custodyFee;
     uint256 public mintFee;
 
-    using SafeMath for uint256;
-    using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;  
+    Counters.Counter public tokenIdCounter;  
 
     event Created(string name, string symbol, uint256 _royalty, address _creator, address token, uint256 tokenId);
     event SelfManaged(uint256 tokenId);
@@ -28,12 +29,12 @@ contract Minter721 is ERC721, AccessControl {
 
     mapping(uint256 => address) public tokenContract;
 
-    constructor(address _dao) ERC721("Pasar NFT Factory", "NFTF") {
+    constructor() ERC721("Pasar NFT Factory", "NFTF") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
-        dao = _dao;
-        createFee = 100e18;
-        custodyFee = 100e18;
+        dao = msg.sender;
+        createFee = 100e18; // 100
+        custodyFee = 1000e18; // 1,000
         mintFee = 1e18; // 1
     }
 
@@ -57,8 +58,8 @@ contract Minter721 is ERC721, AccessControl {
 
         ERC721Base token = new ERC721Base(name, symbol, _royalty, _creator);
         address tokenAddress = address(token);
-        uint256 tokenId = _tokenIdCounter.current();
-        _tokenIdCounter.increment();
+        uint256 tokenId = tokenIdCounter.current();
+        tokenIdCounter.increment();
         _safeMint(msg.sender, tokenId);  
         tokenContract[tokenId] = tokenAddress;     
 

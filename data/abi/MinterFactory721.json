@@ -1,5 +1,5 @@
 [
-  "constructor(address)",
+  "constructor()",
   "event Approval(address indexed,address indexed,uint256 indexed)",
   "event ApprovalForAll(address indexed,address indexed,bool)",
   "event Created(string,string,uint256,address,address,uint256)",
@@ -35,6 +35,7 @@
   "function supportsInterface(bytes4) view returns (bool)",
   "function symbol() view returns (string)",
   "function tokenContract(uint256) view returns (address)",
+  "function tokenIdCounter() view returns (uint256)",
   "function tokenURI(uint256) view returns (string)",
   "function transferFrom(address,address,uint256)",
   "function updateDao(address)",

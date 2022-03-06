@@ -13,14 +13,14 @@ async function main() {
   console.log("PasarGovernor deployed to:", pasarGovernor.address); 
 
   const Market721 = await hre.ethers.getContractFactory("Market721");
-  const market721 = await Market721.deploy(pasarGovernor.address);
+  const market721 = await Market721.deploy();
   await market721.deployed(); 
   console.log("Market721 deployed to:", market721.address);   
 
-  const Minter721 = await hre.ethers.getContractFactory("Minter721");
-  const minter721 = await Minter721.deploy(pasarGovernor.address);
-  await minter721.deployed(); 
-  console.log("Minter721 deployed to:", minter721.address);   
+  const MinterFactory721 = await hre.ethers.getContractFactory("MinterFactory721");
+  const minterFactory721 = await MinterFactory721.deploy();
+  await minterFactory721.deployed(); 
+  console.log("MinterFactory721 deployed to:", minterFactory721.address);   
 
 }
 

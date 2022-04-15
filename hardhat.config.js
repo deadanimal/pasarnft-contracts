@@ -17,6 +17,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
 
 
 const ACC_01_SECRET = process.env.ACC_01_SECRET;
+const MLM_SECRET = process.env.MLM_SECRET;
 
 module.exports = {
   solidity: {
@@ -40,6 +41,11 @@ module.exports = {
     bifrost: {
       url: 'https://rpc.chainbifrost.com/',
       accounts: [`${ACC_01_SECRET}`]
-    },               
+    },   
+    
+    mlm: {
+      url: 'https://rpc.chainbifrost.com/',
+      accounts: [`${MLM_SECRET}`]
+    },      
   },
 };

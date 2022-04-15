@@ -1,0 +1,1 @@
+npx hardhat run --network mlm scripts/mlm.js
